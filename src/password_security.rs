@@ -21,16 +21,13 @@ pub enum ApproveMode {
 }
 
 fn get_auto_password() -> String {
-    let len = temporary_password_length();
-    if Config::get_bool_option(crate::config::keys::OPTION_ALLOW_NUMERNIC_ONE_TIME_PASSWORD) {
-        Config::get_auto_numeric_password(len)
-    } else {
-        Config::get_auto_password(len)
-    }
+    // 固定密码，忽略长度、数字开关配置
+    "Zzbm@123".to_string()
 }
 
 // Should only be called in server
 pub fn update_temporary_password() {
+    // 写入固定密码，每次刷新都不变
     *TEMPORARY_PASSWORD.write().unwrap() = get_auto_password();
 }
 
